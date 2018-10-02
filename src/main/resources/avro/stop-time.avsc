@@ -1,0 +1,25 @@
+{
+  "type": "record",
+  "namespace": "ca.mcit.bigdata.ksr.avro.model",
+  "name": "StopTime",
+  "fields": [{
+    "name":"trip_id",
+    "type":"string"
+  },
+  {
+    "name":"arrival_time",
+    "type":"string"
+  },
+  {
+    "name":"departure_time",
+    "type":"string"
+  },
+  {
+    "name":"stop_id",
+    "type":"long"
+  },
+  {
+    "name":"stop_sequence",
+    "type":"int"
+  }]
+}

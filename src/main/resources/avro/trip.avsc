@@ -1,0 +1,42 @@
+{
+    "type": "record",
+    "namespace": "ca.mcit.bigdata.ksr.avro.model",
+    "name": "Trip",
+    "fields": [{
+        "name": "route_id",
+        "type": "int"
+    },
+    {
+        "name": "service_id",
+        "type": "string"
+    },
+    {
+        "name": "trip_id",
+        "type": "string"
+    },
+    {
+        "name": "trip_headsign",
+        "type": "string"
+    },
+    {
+        "name": "direction_id",
+        "type": "int"
+    },
+    {
+        "name": "shape_id",
+        "type": "long"
+    },
+    {
+        "name": "wheelchair_accessible",
+        "type": "int"
+    },
+    {
+        "name": "note_fr",
+        "type": ["null", "string"]
+    },
+    {
+        "name": "note_en",
+        "type": ["null", "string"]
+    }
+  ]
+}

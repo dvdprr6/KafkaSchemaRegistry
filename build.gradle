@@ -1,0 +1,58 @@
+apply plugin: 'java-library'
+apply plugin: "com.commercehub.gradle.plugin.avro-base"
+
+/*
+
+bin/kafka-avro-console-consumer --topic stop_time --bootstrap-server localhost:9092 --from-beginning
+
+*/
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.15.1"
+    }
+}
+
+dependencies {
+  compile fileTree(dir: 'lib', include: '*.jar')
+  compile "org.apache.avro:avro:1.8.2"
+  compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.0.0'
+  
+  compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.7'
+  compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+  compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.7'
+}
+
+jar{
+  manifest{
+    attributes(
+      'Implementation-title':project.name,
+      'Main-Class':'ca.mcit.bigdata.ksr.main.Main')
+  }
+  
+  from {
+    configurations.compile.collect { it.isDirectory() ? it :zipTree(it) }
+  }
+}
+
+task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/main/resources/avro")
+    outputDir = file("src/main/java/")
+}
+
+task buildJar(type: Copy){
+  dependsOn jar
+}
+
+compileJava.source(generateAvro.outputs)
